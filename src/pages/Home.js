@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import SearchAndFilter from '../components/SearchAndFilter'
 import Countries from '../components/Countries';
-
+import {similarity} from '../lib/helper.js'
 function Home(props) {
 
   const [countries, setCountries] = useState([])
@@ -32,7 +32,7 @@ function Home(props) {
       if(searchInput.trim() === ''){
         setFilteredCountry([...countries])
       }else {
-        setFilteredCountry([...countries.filter(country => country.name.toLowerCase() === searchInput.toLowerCase())])
+        setFilteredCountry([...countries.filter(country => similarity(country.name.toLowerCase(),searchInput.toLowerCase()) > 0.5)])
       }
     }, 500)
 
