@@ -1,14 +1,17 @@
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useParams } from 'react-router-dom'
 
 function CountryPage (props) {
   const location = useLocation()
-  const { country, countries } = location.state
+  const { countries } = location.state
+  const {alpha3Code} = useParams()
+
+  const country = countries.find(item => item.alpha3Code === alpha3Code)
 
   let countryBorders;
   if(country.borders) {
     countryBorders = country.borders.map(border => countries.find(country => border === country.alpha3Code))
   }
-  console.log(countryBorders);
+
   return (
     <div className={`country-page${props.darkMode ? ' dark-mode' : ''}`}>
       <div className='back-link'>
@@ -21,7 +24,7 @@ function CountryPage (props) {
         <h2>{country.name}</h2>
         <div className='details'>
           <div className='left'>
-            <h3>Native name: {country.name.nativeName}</h3>
+            <h3>Native name: {country.nativeName}</h3>
             <h3>Population:{parseInt(country.population).toLocaleString()}</h3> 
             <h3>Region: {country.region}</h3> 
             <h3>Sub region: {country.subregion}</h3> 
@@ -29,7 +32,7 @@ function CountryPage (props) {
           </div>
           <div className='right'>
             <h3>Top level domain: {country.topLevelDomain}</h3>
-            <h3>Currencies: {country.currencies && country.currencies.name}</h3> 
+            <h3>Currencies: {country.currencies && country.currencies[0].name}</h3> 
             <h3>Languages: {country.languages[0].name} </h3> 
           </div>
         </div>
@@ -37,7 +40,7 @@ function CountryPage (props) {
           <span>Border Countries</span>
           <ul>
             {countryBorders && countryBorders.map((item, index) => (
-             <li key={index}>{item.name}</li>
+             <li key={index}><Link to={`/${item.alpha3Code}`} state={{ countries:countries }}>{item.name}</Link></li>
             ))}
           </ul>
         </div>

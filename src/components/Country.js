@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Country = ({ country, countries }) => {
 
   return (
-    <Link to={`/${country.alpha3Code.toLowerCase()}`} state={{  country, countries  }}>
+    <Link to={`/${country.alpha3Code}`} state={{  country, countries  }}>
       <li>
       <img src={country.flags.svg} alt={`${country.name} flag`} width='50' />
       <h2> {country.name}</h2>
