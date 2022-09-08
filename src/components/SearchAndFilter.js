@@ -17,6 +17,7 @@ const searchHandler = (e) => {
 
     <div className="filter">
       <select onChange={filterHandler}>
+        <option value="" disabled hidden>Filter by region</option>
         <option value='All'>َAll</option>
         <option value='Africa'>Africa</option>
         <option value='Americas'>America</option>

@@ -6,7 +6,7 @@ const Countries = ({countries}) => {
     <div className="countries">
       {countries &&
         countries.map((country, index) => {
-          return <Country key={index} country={country} />
+          return <Country key={index} country={country} countries={countries} />
         })
       }
     </div>
