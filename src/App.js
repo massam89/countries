@@ -16,7 +16,7 @@ const App = () => {
     <>
       <Header darkMode={darkMode} onChangeDarkMode={darkModeHandler}/>
       <Routes>
-        <Route path="/" element={<Home darkMode={darkMode}/>} />
+        <Route path="/" element={<Home darkMode={darkMode} />} />
         <Route path=":alpha3Code" element={<CountryPage darkMode={darkMode} />} />
       </Routes>
       

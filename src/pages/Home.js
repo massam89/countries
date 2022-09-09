@@ -8,6 +8,8 @@ function Home(props) {
   const [filteredCountry, setFilteredCountry] = useState([])
   const [filter, setFilter] = useState('all')
   const [searchInput, setSearchInput] = useState('')
+  const [nameFilter, setNameFilter] = useState(false)
+  const [popFilter, setPopFilter] = useState(false)
 
   useEffect(() => {
     const url = 'https://restcountries.com/v2/all'
@@ -47,11 +49,38 @@ function Home(props) {
     setSearchInput(input)
   }
 
+  const sortNameHandler = () => {
+    let nameFilterCountries;
+    if(nameFilter){
+      nameFilterCountries = filteredCountry.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+    } else {
+      nameFilterCountries = filteredCountry.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0))
+    }
+    setFilteredCountry([...nameFilterCountries])
+    setNameFilter(!nameFilter)
+  }
+
+  const sortPopHandler = () => {
+    let popFilterCountries;
+    if(popFilter){
+      popFilterCountries = filteredCountry.sort((a, b) => parseInt(b.population) - parseInt(a.population))
+    } else {
+      popFilterCountries = filteredCountry.sort((a, b) => parseInt(a.population) - parseInt(b.population))
+    }
+    setFilteredCountry([...popFilterCountries])
+    setPopFilter(!popFilter)
+  }
+
   return (
-    <div className={`home${props.darkMode ? ' dark-mode' : ''}`}>
-      <SearchAndFilter onChangeSearch={searchHandler} onChangeFilter={filterHandler}/>
-      <Countries filteredCountry={filteredCountry} countries={countries} />
+    <>
+      <button onClick={sortPopHandler} className={`sortPop${props.darkMode ? ' dark-mode' : ''}`}>Sort by population</button>
+      <button onClick={sortNameHandler} className={`sortName${props.darkMode ? ' dark-mode' : ''}`}>Sort by name</button>
+      <div className={`home${props.darkMode ? ' dark-mode' : ''}`}>
+        <SearchAndFilter onChangeSearch={searchHandler} onChangeFilter={filterHandler}/>
+        <Countries filteredCountry={filteredCountry} countries={countries} />
     </div>
+    </>
+    
   );
 }
 

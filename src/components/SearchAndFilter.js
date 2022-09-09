@@ -25,7 +25,7 @@ const searchHandler = (e) => {
             <option value='Asia'>Asia</option>
             <option value='Europe'>Europe</option>
             <option value='Oceania'>Oceania</option>
-          </select>
+          </select>          
         </div>
       </div>  
     </div>
