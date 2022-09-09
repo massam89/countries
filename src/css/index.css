@@ -1,9 +1,9 @@
 :root {
   --dark-blue : hsl(209, 23%, 22%); /*(Dark Mode Elements)*/
   --very-dark-blue : hsl(207, 26%, 17%); /*(Dark Mode Background)*/
-  --very-dark-blue:  hsl(200, 15%, 8%); /*(Light Mode Text)*/
+  --very-dark-blue-text:  hsl(200, 15%, 8%); /*(Light Mode Text)*/
   --dark-gray : hsl(0, 0%, 52%); /*(Light Mode Input)*/
-  --very-ligh-gray : hsl(0, 0%, 98%); /*(Light Mode Background)*/
+  --very-light-gray : hsl(0, 0%, 98%); /*(Light Mode Background)*/
   --white : hsl(0, 0%, 100%); /*(Dark Mode Text & Light Mode Elements)*/
 }
 
@@ -15,8 +15,19 @@
 
 html {
   font-family: 'Nunito Sans', sans-serif;
+  width: 100vw;
 }
 
 body {
+  width: 100%
+}
 
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 300;
 }
