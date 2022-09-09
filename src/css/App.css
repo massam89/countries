@@ -219,6 +219,7 @@ width: 400px;
 .home.dark-mode .search-filter {
   background-color: var(--very-dark-blue);
   color: var(--white);
+  margin: -1px
 }
 
 .home.dark-mode .search {
@@ -318,7 +319,7 @@ width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 0px;
   }
   
   .home .countries .container {
