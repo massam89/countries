@@ -8,8 +8,8 @@ function Home(props) {
   const [filteredCountry, setFilteredCountry] = useState([])
   const [filter, setFilter] = useState('all')
   const [searchInput, setSearchInput] = useState('')
-  const [nameFilter, setNameFilter] = useState(false)
-  const [popFilter, setPopFilter] = useState(false)
+  const [nameFilter, setNameFilter] = useState(true)
+  const [popFilter, setPopFilter] = useState(true)
 
   //Get data from an API
   useEffect(() => {
