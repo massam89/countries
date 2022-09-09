@@ -34,7 +34,7 @@ function Home(props) {
       }else {
         setFilteredCountry([...countries.filter(country => similarity(country.name.toLowerCase(),searchInput.toLowerCase()) > 0.5)])
       }
-    }, 500)
+    }, 300)
 
     return () => clearTimeout(identifier)
   }, [searchInput])

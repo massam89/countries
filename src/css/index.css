@@ -19,7 +19,7 @@ html {
 }
 
 body {
-  width: 100%
+  width: 100%;
 }
 
 h2 {
@@ -30,4 +30,8 @@ h2 {
 h3 {
   font-size: 14px;
   font-weight: 300;
+}
+
+.boldHeading {
+  font-weight: 600;
 }
