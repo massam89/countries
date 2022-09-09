@@ -13,7 +13,6 @@ const Country = ({ country, countries }) => {
         <h3><span className='boldHeading'>Capital: </span> {country.capital}</h3>
       </li>
     </Link>
-    
   )
 }
 

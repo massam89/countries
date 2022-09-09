@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import SearchAndFilter from '../components/SearchAndFilter'
 import Countries from '../components/Countries';
 import {similarity} from '../lib/helper.js'
-function Home(props) {
 
+function Home(props) {
   const [countries, setCountries] = useState([])
   const [filteredCountry, setFilteredCountry] = useState([])
   const [filter, setFilter] = useState('all')
@@ -11,6 +11,7 @@ function Home(props) {
   const [nameFilter, setNameFilter] = useState(false)
   const [popFilter, setPopFilter] = useState(false)
 
+  //Get data from an API
   useEffect(() => {
     const url = 'https://restcountries.com/v2/all'
     fetch(url)
@@ -21,14 +22,21 @@ function Home(props) {
     })
   }, [])
 
+  //Handle list When filter button is changed
   useEffect(() => {
     if(filter === 'All') {
       setFilteredCountry([...countries])
     } else {
       setFilteredCountry([...countries.filter(country => country.region === filter)])
     }
+    // eslint-disable-next-line
   }, [filter])
 
+  const filterHandler = (filter) => {
+    setFilter(filter)
+  }
+
+  //Handle list When search input is changed
   useEffect(() => {
     const identifier = setTimeout(() => {
       if(searchInput.trim() === ''){
@@ -39,16 +47,14 @@ function Home(props) {
     }, 300)
 
     return () => clearTimeout(identifier)
+    // eslint-disable-next-line
   }, [searchInput])
-
-  const filterHandler = (filter) => {
-    setFilter(filter)
-  }
 
   const searchHandler = (input) => {
     setSearchInput(input)
   }
 
+  // Sort Handlers
   const sortNameHandler = () => {
     let nameFilterCountries;
     if(nameFilter){
@@ -78,9 +84,8 @@ function Home(props) {
       <div className={`home${props.darkMode ? ' dark-mode' : ''}`}>
         <SearchAndFilter onChangeSearch={searchHandler} onChangeFilter={filterHandler}/>
         <Countries filteredCountry={filteredCountry} countries={countries} />
-    </div>
-    </>
-    
+      </div>
+    </> 
   );
 }
 

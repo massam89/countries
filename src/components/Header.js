@@ -1,4 +1,5 @@
 const Header = (props) => {
+
   const darkModeHandler = () => {
     props.onChangeDarkMode()
   }
@@ -9,8 +10,7 @@ const Header = (props) => {
         <div className="theme-mode" onClick={darkModeHandler}>
           <i className="fa-regular fa-moon"></i><span>Dark Mode</span>
         </div>
-      </div>
-      
+      </div>  
     </div>
   )
 }

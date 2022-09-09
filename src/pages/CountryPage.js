@@ -48,7 +48,6 @@ function CountryPage (props) {
             </div>
           </div>
         </div>
-        
       </div>
     </div>
   )

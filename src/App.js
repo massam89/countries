@@ -19,7 +19,6 @@ const App = () => {
         <Route path="/" element={<Home darkMode={darkMode} />} />
         <Route path=":alpha3Code" element={<CountryPage darkMode={darkMode} />} />
       </Routes>
-      
     </>
   )
 }

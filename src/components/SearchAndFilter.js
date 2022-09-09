@@ -15,7 +15,6 @@ const searchHandler = (e) => {
           <i className="fa-solid fa-magnifying-glass"></i>
           <input type='text' placeholder="Search for a country..." onChange={searchHandler}/>
         </div>
-
         <div className="filter">
           <select onChange={filterHandler} defaultValue={'default'} >
             <option value="default" disabled hidden>Filter by region</option>
