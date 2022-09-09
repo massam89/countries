@@ -50,7 +50,7 @@ function Home(props) {
   return (
     <div className={`home${props.darkMode ? ' dark-mode' : ''}`}>
       <SearchAndFilter onChangeSearch={searchHandler} onChangeFilter={filterHandler}/>
-      <Countries countries={filteredCountry} />
+      <Countries filteredCountry={filteredCountry} countries={countries} />
     </div>
   );
 }
