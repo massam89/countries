@@ -16,7 +16,7 @@ function CountryPage (props) {
     <div className={`country-page${props.darkMode ? ' dark-mode' : ''}`}>
       <div className='container'>
         <div className='back-link'>
-           <Link to='/'><i class="fa-sharp fa-solid fa-arrow-left"></i> back</Link>
+           <Link to='/'><i className="fa-sharp fa-solid fa-arrow-left"></i> back</Link>
         </div>
         <div className='image-description'>
           <div className='image'>
