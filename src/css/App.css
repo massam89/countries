@@ -98,11 +98,12 @@
   border-radius: 7px;
   padding-bottom: 30px;
   margin:0 15px 50px 15px;
+  height: 310px;
 }
 
 .home .country img {
-  width: 174px;
-  height: 130px;
+  width: 231px;
+  height: 153px;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
 }
@@ -213,24 +214,25 @@ width: 400px;
 .sortPop{
   position: fixed;
   bottom: 60px;
-  left: -15px;
+  right: -5px;
   color: var(--white);
   background-color: var(--very-dark-blue);
   cursor: pointer;
-  padding: 5px 30px;
+  padding: 5px 10px;
   border: none;
   border-radius: 3px;
   box-shadow: 0 0 4px 2px rgba(0,0,0,.1);
+
 }
 
 .sortName{
   position: fixed;
   bottom: 90px;
-  left: -15px;
+  right: -5px;
   color: var(--white);
   background-color: var(--very-dark-blue);
   cursor: pointer;
-  padding: 5px 30px;
+  padding: 5px 10px;
   border: none;
   border-radius: 3px;
   box-shadow: 0 0 4px 2px rgba(0,0,0,.1);
