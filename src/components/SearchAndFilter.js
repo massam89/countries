@@ -18,7 +18,7 @@ const searchHandler = (e) => {
         <div className="filter">
           <select onChange={filterHandler} defaultValue={'default'} >
             <option value="default" disabled hidden>Filter by region</option>
-            <option value='All'>َAll</option>
+            <option value='All'>All</option>
             <option value='Africa'>Africa</option>
             <option value='Americas'>America</option>
             <option value='Asia'>Asia</option>
