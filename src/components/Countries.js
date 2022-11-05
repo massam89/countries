@@ -1,18 +1,24 @@
-import Country from './Country'
+import React, { Suspense } from "react";
+import { useSelector } from "react-redux";
+const Country = React.lazy(() => import('./Country'))
 
-const Countries = ({filteredCountry, countries}) => {
-
+const Countries = () => {
+  
+  const filteredCountry = useSelector(state => state.country.filteredCountry)
   return (
     <div className="countries">
-      <div className='container'>
+      <div className="container">
         {filteredCountry &&
           filteredCountry.map((country, index) => {
-            return <Country key={index} country={country} countries={countries} />
-          })
-        }
+            return (
+              <Suspense key={index} fallback={<></>}>
+                <Country country={country} />
+              </Suspense>
+            );
+          })}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Countries;

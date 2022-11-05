@@ -1,91 +1,138 @@
-import { useEffect, useState } from 'react'
-import SearchAndFilter from '../components/SearchAndFilter'
-import Countries from '../components/Countries';
-import {similarity} from '../lib/helper.js'
+import { useEffect, useState } from "react";
+import SearchAndFilter from "../components/SearchAndFilter";
+import Countries from "../components/Countries";
+import { similarity } from "../lib/helper.js";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { countryActions } from "../store/country/countrySlice";
 
 function Home(props) {
-  const [countries, setCountries] = useState([])
-  const [filteredCountry, setFilteredCountry] = useState([])
-  const [filter, setFilter] = useState('all')
-  const [searchInput, setSearchInput] = useState('')
-  const [nameFilter, setNameFilter] = useState(true)
-  const [popFilter, setPopFilter] = useState(true)
+  const countries = useSelector((state) => state.country.countries);
+  const filteredCountry = useSelector((state) => state.country.filteredCountry);
+  const dispatch = useDispatch();
 
-  //Get data from an API
+  const [filter, setFilter] = useState("all");
+  const [searchInput, setSearchInput] = useState("");
+  const [nameFilter, setNameFilter] = useState(true);
+  const [popFilter, setPopFilter] = useState(true);
+
   useEffect(() => {
-    const url = 'https://restcountries.com/v2/all'
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      setCountries([...data])
-      setFilteredCountry([...data])
-    })
+    const currentScrollPosition = +localStorage.getItem('scroll') 
+    window.scrollTo(0, 0)
+    if(currentScrollPosition){
+      const interval = setInterval(() => {   
+        window.scrollTo(0, window.pageYOffset + 10)
+        
+        if(window.pageYOffset === currentScrollPosition) {
+          clearInterval(interval)
+        }
+      }, 1)
+    }
   }, [])
 
   //Handle list When filter button is changed
   useEffect(() => {
-    if(filter === 'All') {
-      setFilteredCountry([...countries])
+
+    if (filter === "All") {
+      dispatch(countryActions.updateFilteredCountry([...countries]));
     } else {
-      setFilteredCountry([...countries.filter(country => country.region === filter)])
+      dispatch(
+        countryActions.updateFilteredCountry([
+          ...countries.filter((country) => country.region === filter),
+        ])
+      );
     }
     // eslint-disable-next-line
-  }, [filter])
+  }, [filter]);
 
   const filterHandler = (filter) => {
-    setFilter(filter)
-  }
+    setFilter(filter);
+  };
 
   //Handle list When search input is changed
   useEffect(() => {
     const identifier = setTimeout(() => {
-      if(searchInput.trim() === ''){
-        setFilteredCountry([...countries])
-      }else {
-        setFilteredCountry([...countries.filter(country => similarity(country.name.toLowerCase(),searchInput.toLowerCase()) > 0.5)])
+      if (searchInput.trim() === "") {
+        dispatch(countryActions.updateFilteredCountry([...countries]));
+      } else {
+        dispatch(countryActions.updateFilteredCountry([
+          ...countries.filter(
+            (country) =>
+              similarity(
+                country.name.toLowerCase(),
+                searchInput.toLowerCase()
+              ) > 0.5
+          ),
+        ]));
       }
-    }, 300)
+    }, 300);
 
-    return () => clearTimeout(identifier)
+    return () => clearTimeout(identifier);
     // eslint-disable-next-line
-  }, [searchInput])
+  }, [searchInput]);
 
   const searchHandler = (input) => {
-    setSearchInput(input)
-  }
+    setSearchInput(input);
+  };
 
   // Sort Handlers
   const sortNameHandler = () => {
     let nameFilterCountries;
-    if(nameFilter){
-      nameFilterCountries = filteredCountry.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+    let arrayForSort = [...filteredCountry]
+
+    if (nameFilter) {
+      nameFilterCountries = arrayForSort.sort((a, b) =>
+        a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+      );
+      
     } else {
-      nameFilterCountries = filteredCountry.sort((a,b) => (b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0))
+      nameFilterCountries = arrayForSort.sort((a, b) =>
+        b.name > a.name ? 1 : a.name > b.name ? -1 : 0
+      );
     }
-    setFilteredCountry([...nameFilterCountries])
-    setNameFilter(!nameFilter)
-  }
+    dispatch(countryActions.updateFilteredCountry([...nameFilterCountries]));
+    setNameFilter(!nameFilter);
+  };
 
   const sortPopHandler = () => {
     let popFilterCountries;
-    if(popFilter){
-      popFilterCountries = filteredCountry.sort((a, b) => parseInt(b.population) - parseInt(a.population))
+    let arrayForSort = [...filteredCountry]
+
+    if (popFilter) {
+      popFilterCountries = arrayForSort.sort(
+        (a, b) => parseInt(b.population) - parseInt(a.population)
+      );
     } else {
-      popFilterCountries = filteredCountry.sort((a, b) => parseInt(a.population) - parseInt(b.population))
+      popFilterCountries = arrayForSort.sort(
+        (a, b) => parseInt(a.population) - parseInt(b.population)
+      );
     }
-    setFilteredCountry([...popFilterCountries])
-    setPopFilter(!popFilter)
-  }
+    dispatch(countryActions.updateFilteredCountry([...popFilterCountries]));
+    setPopFilter(!popFilter);
+  };
 
   return (
     <>
-      <button onClick={sortPopHandler} className={`sortPop${props.darkMode ? ' dark-mode' : ''}`}>Sort by population</button>
-      <button onClick={sortNameHandler} className={`sortName${props.darkMode ? ' dark-mode' : ''}`}>Sort by name</button>
-      <div className={`home${props.darkMode ? ' dark-mode' : ''}`}>
-        <SearchAndFilter onChangeSearch={searchHandler} onChangeFilter={filterHandler}/>
-        <Countries filteredCountry={filteredCountry} countries={countries} />
+      <button
+        onClick={sortPopHandler}
+        className={`sortPop${props.darkMode ? " dark-mode" : ""}`}
+      >
+        Sort by population
+      </button>
+      <button
+        onClick={sortNameHandler}
+        className={`sortName${props.darkMode ? " dark-mode" : ""}`}
+      >
+        Sort by name
+      </button>
+      <div className={`home${props.darkMode ? " dark-mode" : ""}`}>
+        <SearchAndFilter
+          onChangeSearch={searchHandler}
+          onChangeFilter={filterHandler}
+        />
+        <Countries />
       </div>
-    </> 
+    </>
   );
 }
 
