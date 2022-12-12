@@ -18,15 +18,10 @@ function Home(props) {
 
   useEffect(() => {
     const currentScrollPosition = +localStorage.getItem('scroll') 
-    window.scrollTo(0, 0)
     if(currentScrollPosition){
-      const interval = setInterval(() => {   
-        window.scrollTo(0, window.pageYOffset + 10)
-        
-        if(window.pageYOffset === currentScrollPosition) {
-          clearInterval(interval)
-        }
-      }, 1)
+       setTimeout(() => {   
+        window.scroll(0, currentScrollPosition - 200)
+      }, 500)
     }
   }, [])
 

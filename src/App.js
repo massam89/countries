@@ -26,7 +26,7 @@ const App = () => {
       dispatch(countryActions.addCountries(data))
     })
     .catch(err => console.log(err))
-  }, [])
+  }, [dispatch])
 
   return (
     <>

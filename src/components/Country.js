@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Country = ({ country }) => {
 
   const getScrollHandler = () => {
-    localStorage.setItem('scroll', window.pageYOffset)
+    console.log(window.event);
+    localStorage.setItem('scroll', window.event.layerY)
   }
 
   return (
     <Link onClick={getScrollHandler} className="country" to={`/${country.alpha3Code}`} >
       <li>
-        <LazyLoadImage src={country.flags.svg} alt={`${country.name} flag`}/>
+        <img src={country.flags.svg} alt={`${country.name} flag`}/>
         <h2> {country.name}</h2>
         <h3><span className='boldHeading'>Population: </span> {parseInt(country.population).toLocaleString()}</h3>
         <h3><span className='boldHeading'>Region: </span> {country.region}</h3>
